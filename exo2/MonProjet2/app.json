@@ -46,6 +46,12 @@
         "projectId": "1b49e679-e2b2-477d-89ed-e05858e76481"
       }
     },
-    "owner": "alexis_louisfert"
+    "owner": "alexis_louisfert",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1b49e679-e2b2-477d-89ed-e05858e76481"
+    }
   }
 }
