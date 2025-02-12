@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import * as FileSystem from 'expo-file-system';
 
 
@@ -7,9 +7,10 @@ export default function FileScreen() {
     const [text, setText] = useState('');
 
     const saveFile = async () => {
+        Alert.alert("Sauvegarde", "Le fichier a été sauvegardé !");
         const path = FileSystem.documentDirectory + 'test.txt';
         try {
-            await FileSystem.writeAsStringAsync(path, "Hello expo!", { encoding: FileSystem.EncodingType.UTF8 });
+            await FileSystem.writeAsStringAsync(path, text, { encoding: FileSystem.EncodingType.UTF8 });
             console.log('Fichier sauvegardé avec succès.');
         } catch (error) {
             console.error('Erreur lors de la sauvegarde du fichier :', error);
@@ -20,6 +21,7 @@ export default function FileScreen() {
         const path = FileSystem.documentDirectory + 'test.txt';
         try {
             const fileContent = await FileSystem.readAsStringAsync(path, { encoding: FileSystem.EncodingType.UTF8 });
+            Alert.alert("Lecture", `script : ${fileContent}`,);
             console.log('Contenu du fichier :', fileContent);
         } catch (error) {
             console.error('Erreur lors de la lecture du fichier :', error);
@@ -28,8 +30,7 @@ export default function FileScreen() {
 
     return (
         <View style={styles.container}>
-            <Text>Entrez votre texte :</Text>
-            <TextInput style={styles.container} placeholder="Tapez ici..." value={text} onChangeText={setText}/>
+            <TextInput style={styles.textinput} placeholder="Tapez ici..." value={text} onChangeText={setText}/>
             <TouchableOpacity onPress={saveFile}>
                 <Text style={styles.button}>sauvegarder un fichier</Text>
             </TouchableOpacity>
@@ -46,14 +47,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f0f0f0',
-    },
-    input: {
-        width: 200,
-        height: 44,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        marginBottom: 10,
     },
     textinput: {
         height: 40,
