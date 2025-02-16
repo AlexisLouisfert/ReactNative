@@ -6,12 +6,10 @@ import { Stack } from "expo-router";
 
 export default function DiaryScreen() {
     return (
-        <>
-            <Stack.Screen options={{ title: 'Diary' }} />
-            <ThemedView style={styles.container}>
-                <ThemedText type="title">Diary</ThemedText>
-            </ThemedView>
-        </>
+        <View style={styles.container}>
+            
+        </View>
+
     );
 }
 const styles = StyleSheet.create({

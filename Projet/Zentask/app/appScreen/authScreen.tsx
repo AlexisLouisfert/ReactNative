@@ -49,6 +49,18 @@ export default function AuthScreen({navigation} : any) {
             <TouchableOpacity onPress={signOutUser}>
                 <Text style={styles.button}>Se déconnecter</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.button}>Accueil</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Diary')}>
+                <Text style={styles.button}>Journal</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Tasks')}>
+                <Text style={styles.button}>Tâches</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                <Text style={styles.button}>Profil utilisateur</Text>
+            </TouchableOpacity>
             
         </View>
     );  

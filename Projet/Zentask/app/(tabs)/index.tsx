@@ -2,10 +2,10 @@ import { createStackNavigator} from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { NavigationIndependentTree } from '@react-navigation/native';
 import AuthScreen from '../appScreen/authScreen';
-//import HomeScreen from '../appScreen/homeScreen';
-//import DiaryScreen from '../appScreen/diaryScreen';
-//import ProfileScreen from '../appScreen/profileScreen';
-//import TasksScreen from '../appScreen/tasksScreen';
+import HomeScreen from '../appScreen/homeScreen';
+import DiaryScreen from '../appScreen/diaryScreen';
+import ProfileScreen from '../appScreen/profileScreen';
+import TasksScreen from '../appScreen/tasksScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +21,7 @@ export default function App() {
                                 backgroundColor: 'midnightblue' },
                                 headerTintColor: 'lightsteelblue' }
                               }/>
-                {/* <Stack.Screen name='Home'  
+                <Stack.Screen name='Home'  
                               component={HomeScreen} 
                               options={{ title: 'Home', 
                               headerStyle: { 
@@ -48,7 +48,7 @@ export default function App() {
                               headerStyle: { 
                                 backgroundColor: 'midnightblue' },
                                 headerTintColor: 'lightsteelblue' }
-                              }/> */}
+                              }/>
             </Stack.Navigator>
         </NavigationContainer>
       </NavigationIndependentTree>
