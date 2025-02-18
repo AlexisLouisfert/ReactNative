@@ -43,23 +43,14 @@ export default function RegisterScreen() {
 
     return (
         <View style={styles.container}>
-            <div>
-                <TextInput style={styles.input} placeholder="Nom" value={name} onChangeText={setName} onBlur={validateName}/>
-            </div>
-            <div>
-                <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} onBlur={validateEmail}/>
-            </div>
-            <div>
-                <TextInput style={styles.input} placeholder="Mot de passe" value={password} onChangeText={setPassword} onBlur={validatePassword}/>
-            </div>
-            <div>
-                <TextInput style={styles.input} placeholder="Comfirmer le mot de passe" value={confirmPassword} onChangeText={setConfirmPassword} onBlur={validateConfirmPassword}/>
-            </div>
-                {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
-
-            {!error ? <TouchableOpacity onPress={() => (alert(`Nom: ${name}, Email: ${email}, Password: ${password}, ConfirmPassword: ${confirmPassword}`))}>
+            <TextInput style={styles.input} placeholder="Nom" value={name} onChangeText={setName} onBlur={validateName}/>
+            <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} onBlur={validateEmail}/>
+            <TextInput style={styles.input} placeholder="Mot de passe" value={password} onChangeText={setPassword} onBlur={validatePassword}/>
+            <TextInput style={styles.input} placeholder="Comfirmer le mot de passe" value={confirmPassword} onChangeText={setConfirmPassword} onBlur={validateConfirmPassword}/>
+            {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
+            {!error ? ((name && email && password && confirmPassword && email != null && email.includes('@')) ? <TouchableOpacity onPress={() => (alert(`Nom: ${name}, Email: ${email}, Password: ${password}, ConfirmPassword: ${confirmPassword}`))}>
                 <Text style={styles.button}>Entrer</Text>
-            </TouchableOpacity>: null}
+            </TouchableOpacity> : null) : null}
         </View>
     );
 }
