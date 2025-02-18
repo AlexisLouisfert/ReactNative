@@ -1,25 +1,18 @@
-import { useContext } from "react";
-import {CountProvider, useCounter} from "../context/CounterContext";
+import { useCounter } from "../context/CounterContext";
 import { Button, Text, StyleSheet,TouchableOpacity, View } from "react-native";
 
 export default function ContextCounterScreen(){
-    const {count, setCount} = useCounter();
+    const { count, increment, decrement, reset } = useCounter();
     return (
-        <CountProvider>
-
-            <View style={styles.container}>
+        <View style={styles.container}>
             <Text style={styles.title}>Context</Text>
-        
             <Text>Compteur : {count}</Text>
-            <Button title="Incrémenter" onPress={() => setCount(count + 1)} />
-            <Button title="Décrémenter" onPress={() => setCount(count - 1)} />
-            <TouchableOpacity onPress={() => setCount(0)}>
+            <Button title="Incrémenter" onPress={increment} />
+            <Button title="Décrémenter" onPress={decrement} />
+            <TouchableOpacity onPress={reset}>
                 <Text style={styles.button}>Réinitialiser</Text>
             </TouchableOpacity>
-            
-        
-            </View>
-        </CountProvider>
+        </View>
     );
 }
 
