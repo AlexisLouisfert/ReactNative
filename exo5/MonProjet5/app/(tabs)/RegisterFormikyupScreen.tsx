@@ -21,26 +21,21 @@ export default function RegisterFormikyupScreen() {
                   setStatus("");
                 }, 3000); 
               }}
-              
-        >
+            >
             {({handleChange, handleSubmit, handleBlur, values, errors, status}) => (
                 <View style={styles.container}>
-                    
-                        <TextInput style={styles.input} placeholder="Nom" value={values.name} onChangeText={handleChange('name')} onBlur={handleBlur("name")}/>
-                        {errors.name ? <Text style={{ color: 'red' }}>{errors.name}</Text> : null}
-                        <TextInput style={styles.input} placeholder="Email" value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur("name")}/>
-                        {errors.email ? <Text style={{ color: 'red' }}>{errors.email}</Text> : null}
-                        <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur("password")}/>
-                        {errors.password ? <Text style={{ color: 'red' }}>{errors.password}</Text> : null}
-                        <TextInput style={styles.input} placeholder="Confirmer le mot de passe" secureTextEntry value={values.confirmPassword} onChangeText={handleChange('confirmPassword')} onBlur={handleBlur("confirmPassword")}/>
-                        {errors.confirmPassword ? <Text style={{ color: 'red' }}>{errors.confirmPassword}</Text> : null}
-
+                    <TextInput style={styles.input} placeholder="Nom" value={values.name} onChangeText={handleChange('name')} onBlur={handleBlur("name")}/>
+                    {errors.name ? <Text style={{ color: 'red' }}>{errors.name}</Text> : null}
+                    <TextInput style={styles.input} placeholder="Email" value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur("name")}/>
+                    {errors.email ? <Text style={{ color: 'red' }}>{errors.email}</Text> : null}
+                    <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur("password")}/>
+                    {errors.password ? <Text style={{ color: 'red' }}>{errors.password}</Text> : null}
+                    <TextInput style={styles.input} placeholder="Confirmer le mot de passe" secureTextEntry value={values.confirmPassword} onChangeText={handleChange('confirmPassword')} onBlur={handleBlur("confirmPassword")}/>
+                    {errors.confirmPassword ? <Text style={{ color: 'red' }}>{errors.confirmPassword}</Text> : null}
                     <TouchableOpacity onPress={() => handleSubmit()}>
                         <Text style={styles.button}>Entrer</Text>
                     </TouchableOpacity>
-
                     {status && <Text style={styles.success}>{status}</Text>}
-
                 </View>
             )}
         </Formik>
