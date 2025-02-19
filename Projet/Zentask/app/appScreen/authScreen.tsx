@@ -52,10 +52,10 @@ export default function AuthScreen({ navigation }: any) {
       >
         {({ handleChange, handleSubmit, handleBlur,values, errors, status }) => (
           <View style={styles.container}>
-            <TextInput style={styles.input} placeholder="Email" value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur("name")}/>
-                    {errors.email ? <Text style={{ color: 'red' }}>{errors.email}</Text> : null}
-                    <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur("password")}/>
-                    {errors.password ? <Text style={{ color: 'red' }}>{errors.password}</Text> : null}
+            <TextInput style={styles.input} placeholder="Email" value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur("email")}/>
+            {errors.email ? <Text style={{ color: 'red' }}>{errors.email}</Text> : null}
+            <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur("password")}/>
+            {errors.password ? <Text style={{ color: 'red' }}>{errors.password}</Text> : null}
 
             <TouchableOpacity onPress={() => handleSignUp(values)}>
               <Text style={styles.button}>S'inscrire</Text>

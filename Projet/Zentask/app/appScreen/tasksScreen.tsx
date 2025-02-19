@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, Button, FlatList, TextInput, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, TextInput, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { useTasks } from '../context/tasksContext';
 
 export default function TasksScreen() {
-  const { tasks, addTask, updateTask, deleteTask } = useTasks();
+  const { tasks, loadTasks, addTask, updateTask, deleteTask } = useTasks();
   const [newTask, setNewTask] = useState('');
+
+  // Charger (ou recharger) les tâches lors du montage de l’écran
+  useEffect(() => {
+    loadTasks();
+  }, []);
 
   // Fonction de création de tâche
   const handleAddTask = () => {
@@ -41,7 +46,9 @@ export default function TasksScreen() {
       <TouchableOpacity onPress={handleAddTask}>
         <Text style={styles.button}>Ajouter</Text>
       </TouchableOpacity>
-      
+      <TouchableOpacity onPress={loadTasks}>
+        <Text style={styles.button}>Rafraîchir</Text>
+      </TouchableOpacity>
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
@@ -53,7 +60,6 @@ export default function TasksScreen() {
             <TouchableOpacity onPress={() => handleToggleTask(item.id)}>
                 <Text style={styles.button}>✅</Text>
             </TouchableOpacity>
-
             <TouchableOpacity onPress={() => handleDeleteTask(item.id)}>
                 <Text style={styles.button}>🗑️</Text>
             </TouchableOpacity>

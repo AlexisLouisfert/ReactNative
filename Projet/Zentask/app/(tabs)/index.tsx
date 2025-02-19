@@ -4,7 +4,7 @@ import { NavigationIndependentTree } from '@react-navigation/native';
 import AuthScreen from '../appScreen/authScreen';
 import HomeScreen from '../appScreen/homeScreen';
 import DiaryScreen from '../appScreen/diaryAsyncStogeScreen';
-import ProfileScreen from '../appScreen/profileScreen';
+//import ProfileScreen from '../appScreen/profileScreen';
 import TasksScreen from '../appScreen/tasksScreen';
 import TaskProvider from '../context/tasksContext';
 
@@ -37,13 +37,13 @@ export default function App() {
                                   backgroundColor: 'midnightblue' },
                                   headerTintColor: 'lightsteelblue' }
                                 }/>
-                  <Stack.Screen name='Profile'  
+                  {/* <Stack.Screen name='Profile'  
                                 component={ProfileScreen} 
                                 options={{ title: 'Profil utilisateur', 
                                 headerStyle: { 
                                   backgroundColor: 'midnightblue' },
                                   headerTintColor: 'lightsteelblue' }
-                                }/>
+                                }/> */}
                     <Stack.Screen name='Tasks'  
                                   component={TasksScreen} 
                                   options={{ title: 'Tâches', 
