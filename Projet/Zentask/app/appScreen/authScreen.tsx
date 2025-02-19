@@ -1,88 +1,121 @@
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut} from 'firebase/auth';
-import {app} from '../configFirebase/firebaseConfig';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "../configFirebase/firebaseConfig";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
-export default function AuthScreen({navigation} : any) {
-    const auth = getAuth(app);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [user, setUser] = useState('');
-    const signUp = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const email = userCredential.user.email ?? "Email inconnu";
-                setUser(email);
-            })
-            .catch((error) => alert(error.message));
-    };
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Email invalide").required("L'email est requis"),
+  password: Yup.string().min(6, "Le mot de passe doit contenir au moins 6 caractères").required("Le mot de passe est requis"),
+});
 
-    const signIn = () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) =>{
-                const email = userCredential.user.email ?? "Email inconnu";
-                setUser(email);
-            })
-            .catch((error) => alert(error.message));
-    };
+export default function AuthScreen({ navigation }: any) {
+  const [user, setUser] = useState("");
 
-    const signOutUser = () => {
-        signOut(auth)
-            .then(() => {
-                setUser('');
-            })
-            .catch((error) => alert(error.message));
-    };
-   
-    return (
-        <View style={styles.container}>
-            <TextInput style={styles.textinput} placeholder="Email" value={email} onChangeText={setEmail}/>
-            <TextInput style={styles.textinput} placeholder="Mot de passe" secureTextEntry value={password} onChangeText={setPassword}/>
+  const handleSignUp = (values: { email: string; password: string }) => {
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        setUser(userCredential.user.email ?? "Email inconnu");
+      })
+      .catch((error) => alert(error.message));
+  };
 
-            <TouchableOpacity onPress={signUp}>
-                <Text style={styles.button}>S'inscrire</Text>
+  const handleSignIn = (values: { email: string; password: string }) => {
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        setUser(userCredential.user.email ?? "Email inconnu");
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => setUser(""))
+      .catch((error) => alert(error.message));
+  };
+
+  return (
+    <View style={styles.container}>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={validationSchema}
+        onSubmit={(values, { resetForm, setStatus }) => {
+            handleSignIn(values);
+            setStatus("✅ Connexion réussie !");
+            setTimeout(() => {
+              resetForm();
+              navigation.navigate("Home");
+              setStatus("");
+            }, 3000); 
+          }}
+      >
+        {({ handleChange, handleSubmit, handleBlur,values, errors, status }) => (
+          <View style={styles.container}>
+            <TextInput style={styles.input} placeholder="Email" value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur("name")}/>
+                    {errors.email ? <Text style={{ color: 'red' }}>{errors.email}</Text> : null}
+                    <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur("password")}/>
+                    {errors.password ? <Text style={{ color: 'red' }}>{errors.password}</Text> : null}
+
+            <TouchableOpacity onPress={() => handleSignUp(values)}>
+              <Text style={styles.button}>S'inscrire</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={signIn}>
-                <Text style={styles.button}>Se connecter</Text>
+            <TouchableOpacity onPress={() => handleSubmit()}>
+              <Text style={styles.button}>Se connecter</Text>
             </TouchableOpacity>
+            {status && <Text style={styles.success}>{status}</Text>}
             {user ? <Text>Bienvenue {user} !</Text> : null}
-            <TouchableOpacity onPress={signOutUser}>
+            <TouchableOpacity onPress={handleSignOut}>
                 <Text style={styles.button}>Se déconnecter</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.button}>Accueil</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Diary')}>
-                <Text style={styles.button}>Journal</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Tasks')}>
-                <Text style={styles.button}>Tâches</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                <Text style={styles.button}>Profil utilisateur</Text>
-            </TouchableOpacity>
-            
-        </View>
-    );  
+            </View>
+        )}
+      </Formik>
+
+    </View>
+  );
 }
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f0f0f0',
-    },
-    textinput: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        paddingHorizontal: 10,
-    },
-    button: {
-        fontSize: 18,
-        color: '#fff',
-        backgroundColor: '#000',
-        textAlign: 'center',
-        marginTop: 10,
-    },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
+  },
+  input: {
+    width: 200,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginTop: 10,
+  },
+  textinput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    width: "80%",
+    marginBottom: 10,
+  },
+  success: {
+    color: "green",
+    marginTop: 10,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  button: {
+    fontSize: 18,
+    color: "lightsteelblue",
+    backgroundColor: "midnightblue",
+    textAlign: "center",
+    padding: 10,
+    width: "80%",
+    marginTop: 10,
+  },
+  error: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 5,
+  },
 });
