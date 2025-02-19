@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { NavigationIndependentTree } from '@react-navigation/native';
 import AuthScreen from '../appScreen/authScreen';
 import HomeScreen from '../appScreen/homeScreen';
-import DiaryScreen from '../appScreen/diaryScreen';
+import DiaryScreen from '../appScreen/diaryAsyncStogeScreen';
 import ProfileScreen from '../appScreen/profileScreen';
 import TasksScreen from '../appScreen/tasksScreen';
 import TaskProvider from '../context/tasksContext';

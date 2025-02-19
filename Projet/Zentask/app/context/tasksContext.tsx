@@ -17,30 +17,30 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
   const auth = getAuth();
 
   // Fonction pour récupérer les tâches de l'utilisateur connecté
-  useEffect(() => {
-    const user = getAuth().currentUser;
-    if (user) {
-      const tasksCol = collection(db, 'tasks');
-      const unsubscribe = onSnapshot(tasksCol, (querySnapshot) => {
-        const taskList = querySnapshot.docs
-          .map(doc => {
-            const data = doc.data();
-            return {
-              id: doc.id,
-              title: data.title,
-              completed: data.completed,
-              createdBy: data.createdBy
-            };
-          })
-          .filter(task => task.createdBy === user.uid); // Filtrer par utilisateur
-  
-        setTasks(taskList);
-      });
-  
-      return () => unsubscribe(); // Nettoyage du listener
-    }
-  }, []);
-  
+ useEffect(() => {
+  const user = getAuth().currentUser;
+  if (user) {
+    const tasksCol = collection(db, 'tasks');
+    const unsubscribe = onSnapshot(tasksCol, (querySnapshot) => {
+      const taskList = querySnapshot.docs
+        .map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            title: data.title,
+            completed: data.completed,
+            createdBy: data.createdBy
+          };
+        })
+        .filter(task => task.createdBy === user.uid); // Filtrer par utilisateur
+
+      setTasks(taskList);
+    });
+
+    return () => unsubscribe(); // Nettoyage du listener
+  }
+}, []);
+
   // Ajouter une tâche
   const addTask = async (title: string) => {
     try {
