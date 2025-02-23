@@ -13,9 +13,9 @@ export default function HomeScreen({ navigation }: any) {
             <TouchableOpacity onPress={() => navigation.navigate("Tasks")}>
             <Text style={styles.button}>Tâches</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
             <Text style={styles.button}>Profil utilisateur</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={handleSignOut}>
             <Text style={styles.button}>Se déconnecter</Text>
             </TouchableOpacity>
