@@ -97,6 +97,7 @@ const loadTasks = async () => {
     } catch (error) {
       console.error("Erreur lors de l'ajout de la tâche :", error);
     }
+    loadTasks();
   };
 
   // Mettre à jour une tâche
@@ -110,6 +111,7 @@ const loadTasks = async () => {
     } catch (error) {
       console.error("Erreur lors de la mise à jour de la tâche :", error);
     }
+    loadTasks();
   };
 
   // Supprimer une tâche
@@ -120,6 +122,7 @@ const loadTasks = async () => {
     } catch (error) {
       console.error("Erreur lors de la suppression de la tâche :", error);
     }
+    loadTasks();
   };
 
   // Fournir le contexte avec les valeurs définies

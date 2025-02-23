@@ -46,9 +46,6 @@ export default function TasksScreen() {
       <TouchableOpacity onPress={handleAddTask}>
         <Text style={styles.button}>Ajouter</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={loadTasks}>
-        <Text style={styles.button}>Rafraîchir</Text>
-      </TouchableOpacity>
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
