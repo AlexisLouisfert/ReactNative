@@ -107,7 +107,7 @@ export default function NotesProvider({ children }: { children: ReactNode }) {
     loadNotes();
   };
 
-  // Supprimer une note
+  // Supprimer une note 
   const deleteNote = async (noteId: string) => {
     try {
       const noteDoc = doc(db, 'notes', noteId);

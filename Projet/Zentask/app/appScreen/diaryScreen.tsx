@@ -30,7 +30,7 @@ export default function DiaryScreen() {
     setEditingNote(null);
   };
 
-  // Supprimer une note
+  // Supprimer une note (adapter uniquement pour telephone)
   const handleDeleteNote = async (noteId: string) => {
     Alert.alert('Supprimer', 'Voulez-vous supprimer cette note ?', [
       { text: 'Annuler', style: 'cancel' },

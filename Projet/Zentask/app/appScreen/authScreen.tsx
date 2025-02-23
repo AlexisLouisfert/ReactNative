@@ -17,6 +17,8 @@ export default function AuthScreen({ navigation }: any) {
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         setUser(userCredential.user.email ?? "Email inconnu");
+        handleSignIn(values);
+        navigation.navigate("Home");
       })
       .catch((error) => alert(error.message));
   };

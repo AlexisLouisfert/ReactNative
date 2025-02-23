@@ -14,8 +14,8 @@ export default function TasksScreen() {
   // Fonction de création de tâche
   const handleAddTask = () => {
     if (newTask.trim()) {
-      addTask(newTask); // Ajouter une tâche avec le texte
-      setNewTask(''); // Réinitialiser l'input
+      addTask(newTask); 
+      setNewTask(''); 
     } else {
       Alert.alert('Erreur', 'La tâche ne peut pas être vide.');
     }
